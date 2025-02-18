@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add - wonder lands</title>
+  </head>
+  <body>
+    <h3>Add new list</h3>
+    <form action="/listings" method="post">
+      <input type="text" name="listing[title]" placeholder="Enter Title" />
+      <textarea name="listing[description]">
+            Description Here
+        </textarea
+      >
+      <input type="text" name="listing[price]" placeholder="Enter Price" />
+      <input
+        type="text"
+        name="listing[location]"
+        placeholder="Enter location"
+      />
+      <input type="text" name="listing[image]" placeholder="Enter image" />
+      <input type="text" name="listing[country]" placeholder="Enter country" />
+      <button>Add</button>
+    </form>
+  </body>
+</html>

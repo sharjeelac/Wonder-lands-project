@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const {allListings, show} = require("../controllers/index.controllers.js");
+const { allListings, show, addList } = require("../controllers/index.controllers.js");
 
 router.get("/", allListings);
-router.get('/:id', show)
+router.post('/', addList)
+router.get("/new", (req, res) => {
+  res.render("new");
+});
+router.get("/:id", show);
 
 module.exports = router;
