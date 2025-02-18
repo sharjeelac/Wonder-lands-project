@@ -6,6 +6,7 @@
     <title>See Details - Wonder lands</title>
   </head>
   <body>
+    <a href="/listings">All list</a>
     <h3>Title : <%= list.title %></h3>
     <ul>
       Description : <%= list.description %>
@@ -19,5 +20,7 @@
     <ul>
       Country : <%= list.country %>
     </ul>
+
+    <a href="/listings/<%= list._id %>/edit">Edit </a>
   </body>
 </html>
