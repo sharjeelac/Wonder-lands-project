@@ -1,0 +1,13 @@
+.fa-mountain-sun{
+    font-size: 2rem;
+    color: #FF385C;
+}
+
+.navbar {
+    min-height: 5rem;
+    background-color: aliceblue;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
