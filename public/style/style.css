@@ -1,13 +1,38 @@
-.fa-mountain-sun{
-    font-size: 2rem;
-    color: #FF385C;
+.fa-mountain-sun {
+  font-size: 2rem;
+  color: #ff385c;
 }
 
 .navbar {
-    min-height: 5rem;
-    background-color: aliceblue;
+  min-height: 5rem;
+  background-color: aliceblue;
 }
 
 .nav-link {
-    color: #222222 !important;
+  color: #222222 !important;
+}
+
+.f-info {
+  background-color: #F8F9FA;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.f-social-links i {
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
+
+.f-brand {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
