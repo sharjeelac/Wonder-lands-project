@@ -6,6 +6,7 @@ const ListingModel = require("./models/listing.js");
 const listingRoute = require("./routes/index.route.js");
 const _ = require("mongoose-paginate");
 const methodOverRide = require('method-override')
+const engine = require('ejs-mate')
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ connectDB();
 // Middlewares
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.engine('ejs', engine)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(methodOverRide("_method"))

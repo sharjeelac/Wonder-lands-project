@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>See Details - Wonder lands</title>
-  </head>
-  <body>
-    <a href="/listings">All list</a>
-    <h3>Title : <%= list.title %></h3>
-    <ul>
-      Description : <%= list.description %>
-    </ul>
-    <ul>
-      Price : <%= list.price %>
-    </ul>
-    <ul>
-      Location : <%= list.location %>
-    </ul>
-    <ul>
-      Country : <%= list.country %>
-    </ul>
+<% layout('layouts/boilerplate') -%>
+<body>
+  <a href="/listings">All list</a>
+  <h3>Title : <%= list.title %></h3>
+  <ul>
+    Description : <%= list.description %>
+  </ul>
+  <ul>
+    Price : <%= list.price %>
+  </ul>
+  <ul>
+    Location : <%= list.location %>
+  </ul>
+  <ul>
+    Country : <%= list.country %>
+  </ul>
 
-    <a href="/listings/<%= list._id %>/edit">Edit </a>
-  </body>
-</html>
+  <a href="/listings/<%= list._id %>/edit">Edit </a>
+  <form action="/listings/<%= list._id %>?_method=DELETE" method="post">
+    <button>Delete</button>
+  </form>
+</body>

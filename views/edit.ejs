@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add - wonder lands</title>
-  </head>
-  <body>
-    <a href="/listings/<%= list._id %>">Back to list</a>
-    <h3>Edit list</h3>
-    <form action="/listings/<%= list._id %>?_method=PUT" method="post">
-      <input type="text" value="<%= list.title %>" name="listing[title]" />
-      <textarea name="listing[description]">
+<% layout('layouts/boilerplate') -%>
+<body>
+  <a href="/listings/<%= list._id %>">Back to list</a>
+  <h3>Edit list</h3>
+  <form action="/listings/<%= list._id %>?_method=PUT" method="post">
+    <input type="text" value="<%= list.title %>" name="listing[title]" />
+    <textarea name="listing[description]">
         <%= list.description %>
         </textarea
-      >
-      <input type="text" value="<%= list.price %>" name="listing[price]" />
-      <input
-        type="text"
-        name="listing[location]"
-        value="<%= list.location %>"
-      />
-      <input type="text" name="listing[image]" value="<%= list.image %>" />
-      <input type="text" name="listing[country]" value="<%= list.country %>" />
-      <button>Add</button>
-    </form>
-  </body>
-</html>
+    >
+    <input type="text" value="<%= list.price %>" name="listing[price]" />
+    <input type="text" name="listing[location]" value="<%= list.location %>" />
+    <input type="text" name="listing[image]" value="<%= list.image %>" />
+    <input type="text" name="listing[country]" value="<%= list.country %>" />
+    <button>Add</button>
+  </form>
+</body>

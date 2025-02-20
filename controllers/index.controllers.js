@@ -29,3 +29,9 @@ module.exports.update = async (req, res) => {
   await newList.save();
   res.redirect(`/listings/${id}`);
 };
+
+module.exports.deleted = async (req, res) => {
+  let { id } = req.params;
+  await listingModel.findByIdAndDelete(id);
+  res.redirect(`/listings`);
+};
