@@ -29,7 +29,7 @@ app.use("/listings", listingRoute);
 
 // Home Page
 app.get("/", (req, res) => {
-  res.send("Welcome To Wonder Lands");
+  res.render("home.ejs");
 });
 
 // Testing route
@@ -55,10 +55,28 @@ app.all("*", (req, res, next) => {
   next(new customError(404, "Page Not Found!"));
 });
 
+// Example route that triggers error
+app.get('/danger', (req, res, next) => {
+  const err = new Error('This is a test error');
+  err.status = 403;
+  next(err);
+});
+
+// Error handling middleware
 app.use((err, req, res, next) => {
-  const { status, message } = err;
-  console.log(status || 500, message || "Inernal Sever Error!");
-  res.status(status || 500).send(message || "Internal Server Error!");
+  const { status = 500, message = "Internal Server Error!" } = err;
+  console.error(status, message);
+
+  // For AJAX/JSON requests
+  if (req.xhr || req.headers.accept.indexOf("json") > -1) {
+    return res.status(status).json({ error: message });
+  }
+
+  // For normal page requests
+  res.status(status).render("errorPopup", {
+    message,
+    currentPage: req.originalUrl, // Maintain current page context
+  });
 });
 
 const PORT = process.env.PORT || 8080;
