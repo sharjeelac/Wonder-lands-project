@@ -9,6 +9,7 @@ const methodOverRide = require("method-override");
 const engine = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const customError = require("./utils/CustomError.js");
+const listingSchema = require('./schemas/listingJoi.js')
 
 dotenv.config();
 
@@ -67,16 +68,7 @@ app.use((err, req, res, next) => {
   const { status = 500, message = "Internal Server Error!" } = err;
   console.error(status, message);
 
-  // For AJAX/JSON requests
-  if (req.xhr || req.headers.accept.indexOf("json") > -1) {
-    return res.status(status).json({ error: message });
-  }
-
-  // For normal page requests
-  res.status(status).render("errorPopup", {
-    message,
-    currentPage: req.originalUrl, // Maintain current page context
-  });
+  res.status(status).send(message)
 });
 
 const PORT = process.env.PORT || 8080;
