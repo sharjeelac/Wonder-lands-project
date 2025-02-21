@@ -1,10 +1,85 @@
 <% layout('layouts/boilerplate') -%>
-<body>
-  <h2>All listings</h2>
-  <form action="/listings/new" method="get">
-    <button>Add New</button>
-  </form>
-  <% for(let list of listings){ %>
-  <p><a href="/listings/<%= list._id %>"><%= list.title %></a></p>
-  <% } %>
-</body>
+
+<div class="">
+  <h2 class="display-5 fw-bold mb-4 text-gradient-primary">
+    Explore Unique Stays
+  </h2>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    <% for(let list of listings){ %>
+    <div class="col">
+      <div class="card h-100 shadow-hover">
+        <a
+          href="/listings/<%= list._id %>"
+          class="text-decoration-none text-dark"
+        >
+          <div class="card-img-wrapper position-relative overflow-hidden">
+            <img
+              src="<%= list.image %>"
+              class="card-img-top"
+              alt="<%= list.title %>"
+              loading="lazy"
+              style="height: 220px; object-fit: cover"
+            />
+            <div class="position-absolute top-0 start-0 m-3">
+              <span class="badge bg-white text-dark border shadow-sm">
+                <i class="fas fa-star text-warning me-1"></i>4.9
+              </span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-semibold mb-2"><%= list.title %></h5>
+            <p class="text-muted mb-3 small">
+              <i class="fas fa-map-marker-alt text-primary me-1"></i><%=
+              list.location %> <%= list.country %>
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="h4 text-primary">$<%= list.price %></span>
+                <span class="text-muted">/night</span>
+              </div>
+              <button class="btn btn-sm btn-outline-primary rounded-pill">
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<style>
+  .text-gradient-primary {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .shadow-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 1rem;
+  }
+
+  .shadow-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-img-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.03));
+  }
+
+  .btn-outline-primary:hover {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    color: white !important;
+    border-color: transparent;
+  }
+</style>
