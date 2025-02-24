@@ -2,6 +2,7 @@ const listingModel = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const customError = require("../utils/CustomError.js");
 const { listingSchema } = require("../schemas/listingJoi.js");
+const validateListing = require("../Middlewares/validateListing.js");
 
 module.exports.allListings = wrapAsync(async (req, res) => {
   let listings = await listingModel.find();
@@ -22,8 +23,6 @@ module.exports.edit = wrapAsync(async (req, res) => {
 
 // post create new list
 module.exports.addList = wrapAsync(async (req, res) => {
-  let result = listingSchema.validate(req.body);
-  console.log(result);
   let newList = new listingModel(req.body.listing);
   await newList.save();
   res.redirect("/listings");

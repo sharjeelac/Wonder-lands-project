@@ -9,7 +9,6 @@ const methodOverRide = require("method-override");
 const engine = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const customError = require("./utils/CustomError.js");
-const listingSchema = require('./schemas/listingJoi.js')
 
 dotenv.config();
 
