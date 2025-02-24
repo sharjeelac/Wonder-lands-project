@@ -88,10 +88,22 @@
   <!-- Review Section  -->
   <div class="review-container col-8 offset-1">
     <h2>Leave a Review</h2>
-    <form action="">
-      <div class="rating  ">
+    <form
+      method="POST"
+      action="/listings/<%= list._id %>/reviews"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="rating">
         <label class="form-label" for="rating">Rating</label>
-        <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating" />
+        <input
+          class="form-range"
+          type="range"
+          min="1"
+          max="5"
+          name="review[rating]"
+          id="rating"
+        />
       </div>
 
       <label class="form-label mb-3 mt-3" for="comment">Comment </label>
@@ -101,8 +113,12 @@
         rows="5"
         name="review[comment]"
         placeholder="write your comment here..."
+        required
       ></textarea>
-      <button type="submit" class="btn btn-outline-dark mb-3 mt-3">Submit</button>
+      <div class="invalid-feedback">Please write a comment</div>
+      <button type="submit" class="btn btn-outline-dark mb-3 mt-3">
+        Submit
+      </button>
     </form>
   </div>
 
@@ -136,4 +152,24 @@
       align-items: center;
     }
   </style>
+  <script>
+    // Form validation script
+    (() => {
+      "use strict";
+      const forms = document.querySelectorAll(".needs-validation");
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          "submit",
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    })();
+  </script>
 </body>

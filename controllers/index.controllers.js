@@ -1,4 +1,5 @@
 const listingModel = require("../models/listing.js");
+const reviewModel = require("../models/review.model.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const customError = require("../utils/CustomError.js");
 const { listingSchema } = require("../schemas/listingJoi.js");
@@ -42,4 +43,18 @@ module.exports.deleted = wrapAsync(async (req, res) => {
   let { id } = req.params;
   await listingModel.findByIdAndDelete(id);
   res.redirect(`/listings`);
+});
+
+module.exports.addReviews = wrapAsync(async (req, res) => {
+  let listing = await listingModel.findById(req.params.id);
+  let newReview = new reviewModel(req.body.review);
+
+  console.log(newReview);
+
+  listing.reviews.push(newReview);
+
+  await newReview.save();
+  await listing.save();
+
+  res.redirect(`/listings/${listing._id}`);
 });
