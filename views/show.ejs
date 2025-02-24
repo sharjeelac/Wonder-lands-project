@@ -6,16 +6,17 @@
       <i class="fas fa-arrow-left me-2"></i>All Listings
     </a>
 
-    <!-- Image Header -->
+    <!-- Listing Header -->
     <div class="position-relative mb-4">
-      <div class="image-overlay"></div>
       <img
         src="<%= list.image %>"
-        class="img-fluid rounded-3 shadow-lg w-100"
-        style="height: 400px; object-fit: cover"
+        class="img-fluid rounded-3 shadow-lg w-100 listing-header-img"
         alt="<%= list.title %>"
       />
-      <div class="position-absolute bottom-0 start-0 p-4 text-white">
+      <div class="image-overlay"></div>
+      <div
+        class="position-absolute bottom-0 start-0 p-4 text-white listing-header-text"
+      >
         <h1 class="display-5 fw-bold mb-2"><%= list.title %></h1>
         <h3 class="fw-semibold">
           $<%= list.price %> <span class="fs-5 fw-normal">/ night</span>
@@ -23,10 +24,10 @@
       </div>
     </div>
 
-    <!-- Details Grid -->
+    <!-- Listing Details -->
     <div class="row g-4 mb-5">
       <div class="col-md-8">
-        <div class="card h-100 border-0 shadow-sm">
+        <div class="card border-0 shadow-sm h-100">
           <div class="card-body">
             <h4 class="card-title fw-semibold mb-3">
               <i class="fas fa-info-circle text-primary me-2"></i>Description
@@ -35,12 +36,10 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-4">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
             <h5 class="fw-semibold mb-4">Listing Details</h5>
-
             <div class="d-flex align-items-center mb-3">
               <i class="fas fa-map-marker-alt text-danger fs-5 me-3"></i>
               <div>
@@ -48,7 +47,6 @@
                 <p class="mb-0 text-muted"><%= list.location %></p>
               </div>
             </div>
-
             <div class="d-flex align-items-center mb-3">
               <i class="fas fa-flag text-success fs-5 me-3"></i>
               <div>
@@ -56,7 +54,6 @@
                 <p class="mb-0 text-muted"><%= list.country %></p>
               </div>
             </div>
-
             <div class="d-flex align-items-center">
               <i class="fas fa-tag text-warning fs-5 me-3"></i>
               <div>
@@ -83,46 +80,76 @@
         </button>
       </form>
     </div>
-  </div>
 
-  <!-- Review Section  -->
-  <div class="review-container col-8 offset-1">
-    <h2>Leave a Review</h2>
-    <form
-      method="POST"
-      action="/listings/<%= list._id %>/reviews"
-      novalidate
-      class="needs-validation"
-    >
-      <div class="rating">
-        <label class="form-label" for="rating">Rating</label>
-        <input
-          class="form-range"
-          type="range"
-          min="1"
-          max="5"
-          name="review[rating]"
-          id="rating"
-        />
+    <!-- Review Section -->
+    <div class="review-section mb-5">
+      <h2>Leave a Review</h2>
+      <form
+        method="POST"
+        action="/listings/<%= list._id %>/reviews"
+        novalidate
+        class="needs-validation"
+      >
+        <div class="mb-3">
+          <label class="form-label" for="rating">Rating</label>
+          <input
+            class="form-range"
+            type="range"
+            min="1"
+            max="5"
+            name="review[rating]"
+            id="rating"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="comment">Comment</label>
+          <textarea
+            class="form-control"
+            cols="30"
+            rows="5"
+            name="review[comment]"
+            placeholder="Write your comment here..."
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please write a comment</div>
+        </div>
+        <button type="submit" class="btn btn-outline-dark">Submit</button>
+      </form>
+    </div>
+
+    <!-- All Reviews -->
+    <div class="all-reviews">
+      <h2>All Reviews</h2>
+      <% if (list.reviews.length) { %>
+      <div class="row">
+        <% list.reviews.forEach(function(review) { %>
+        <div class="col-md-6 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <p class="card-text"><%= review.comment %></p>
+              <p class="card-text">
+                <small class="text-muted">Rating: <%= review.rating %></small>
+              </p>
+
+              <form action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <% }); %>
       </div>
-
-      <label class="form-label mb-3 mt-3" for="comment">Comment </label>
-      <textarea
-        class="form-control"
-        cols="30"
-        rows="5"
-        name="review[comment]"
-        placeholder="write your comment here..."
-        required
-      ></textarea>
-      <div class="invalid-feedback">Please write a comment</div>
-      <button type="submit" class="btn btn-outline-dark mb-3 mt-3">
-        Submit
-      </button>
-    </form>
+      <% } else { %>
+      <p class="text-muted">No reviews yet.</p>
+      <% } %>
+    </div>
   </div>
 
   <style>
+    .listing-header-img {
+      height: 400px;
+      object-fit: cover;
+    }
     .image-overlay {
       position: absolute;
       top: 0;
@@ -136,25 +163,26 @@
       );
       border-radius: 0.75rem;
     }
-
+    .listing-header-text {
+      z-index: 2;
+    }
     .card {
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
-
     .btn {
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
     }
   </style>
+
   <script>
     // Form validation script
-    (() => {
+    (function () {
       "use strict";
       const forms = document.querySelectorAll(".needs-validation");
       Array.from(forms).forEach((form) => {
