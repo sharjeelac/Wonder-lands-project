@@ -51,9 +51,9 @@ app.get(
 );
 
 // Custom Error Handler
-app.all("*", (req, res, next) => {
-  next(new customError(404, "Page Not Found!"));
-});
+// app.all("*", (req, res, next) => {
+//   next(new customError(404, "Page Not Found!"));
+// });
 
 // Example route that triggers error
 app.get('/danger', (req, res, next) => {

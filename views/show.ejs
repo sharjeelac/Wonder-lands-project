@@ -9,13 +9,17 @@
     <!-- Image Header -->
     <div class="position-relative mb-4">
       <div class="image-overlay"></div>
-      <img src="<%= list.image %>" 
-           class="img-fluid rounded-3 shadow-lg w-100" 
-           style="height: 400px; object-fit: cover;" 
-           alt="<%= list.title %>">
+      <img
+        src="<%= list.image %>"
+        class="img-fluid rounded-3 shadow-lg w-100"
+        style="height: 400px; object-fit: cover"
+        alt="<%= list.title %>"
+      />
       <div class="position-absolute bottom-0 start-0 p-4 text-white">
         <h1 class="display-5 fw-bold mb-2"><%= list.title %></h1>
-        <h3 class="fw-semibold">$<%= list.price %> <span class="fs-5 fw-normal">/ night</span></h3>
+        <h3 class="fw-semibold">
+          $<%= list.price %> <span class="fs-5 fw-normal">/ night</span>
+        </h3>
       </div>
     </div>
 
@@ -31,12 +35,12 @@
           </div>
         </div>
       </div>
-      
+
       <div class="col-md-4">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
             <h5 class="fw-semibold mb-4">Listing Details</h5>
-            
+
             <div class="d-flex align-items-center mb-3">
               <i class="fas fa-map-marker-alt text-danger fs-5 me-3"></i>
               <div>
@@ -67,7 +71,10 @@
 
     <!-- Action Buttons -->
     <div class="d-flex gap-3 mb-5">
-      <a href="/listings/<%= list._id %>/edit" class="btn btn-primary px-4 py-2">
+      <a
+        href="/listings/<%= list._id %>/edit"
+        class="btn btn-primary px-4 py-2"
+      >
         <i class="fas fa-edit me-2"></i>Edit Listing
       </a>
       <form action="/listings/<%= list._id %>?_method=DELETE" method="post">
@@ -78,6 +85,27 @@
     </div>
   </div>
 
+  <!-- Review Section  -->
+  <div class="review-container col-8 offset-1">
+    <h2>Leave a Review</h2>
+    <form action="">
+      <div class="rating  ">
+        <label class="form-label" for="rating">Rating</label>
+        <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating" />
+      </div>
+
+      <label class="form-label mb-3 mt-3" for="comment">Comment </label>
+      <textarea
+        class="form-control"
+        cols="30"
+        rows="5"
+        name="review[comment]"
+        placeholder="write your comment here..."
+      ></textarea>
+      <button type="submit" class="btn btn-outline-dark mb-3 mt-3">Submit</button>
+    </form>
+  </div>
+
   <style>
     .image-overlay {
       position: absolute;
@@ -85,7 +113,11 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.6) 100%
+      );
       border-radius: 0.75rem;
     }
 
@@ -95,7 +127,7 @@
 
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
     }
 
     .btn {

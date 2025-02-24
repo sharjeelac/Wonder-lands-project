@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const listingSchema = new mongoose.Schema({
   title: {
@@ -16,7 +17,7 @@ const listingSchema = new mongoose.Schema({
   country: String,
   reviews: [
     {
-      type: Schema.Types.objectId,
+      type: Schema.Types.ObjectId,
       ref: "Review",
     },
   ],
