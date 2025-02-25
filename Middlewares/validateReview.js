@@ -1,4 +1,4 @@
-const reviewSchema = require("../schemas/reviewJoiSchema.js");
+const {reviewSchema} = require("../schemas/reviewJoiSchema.js");
 const customError = require("../utils/CustomError.js");
 
 const validateReview = (req, res, next) => {

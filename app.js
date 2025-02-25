@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/listings", listingRoute);
-app.use("/listings/:id/reviews", reviewsRoute);
+app.use("/listings", reviewsRoute);
 
 // Custom Error Handler for 404
 app.all("*", (req, res, next) => {

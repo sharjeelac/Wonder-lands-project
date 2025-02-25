@@ -6,7 +6,7 @@ const {
 } = require("../controllers/review.controllers.js");
 const validateReview = require("../Middlewares/validateReview.js");
 
-router.post("/:id/reviews", addReviews, validateReview);
+router.post("/:id/reviews", validateReview, addReviews);
 router.delete("/:id/reviews/:reviewId", deleteReviews);
 
 module.exports = router;
