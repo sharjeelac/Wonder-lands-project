@@ -3,7 +3,6 @@ const reviewModel = require("../models/review.model.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const customError = require("../utils/CustomError.js");
 const { listingSchema } = require("../schemas/listingJoi.js");
-const validateListing = require("../Middlewares/validateListing.js");
 
 // show all listings
 module.exports.allListings = wrapAsync(async (req, res) => {
@@ -27,16 +26,27 @@ module.exports.edit = wrapAsync(async (req, res) => {
 
 // post create new list
 module.exports.addList = wrapAsync(async (req, res) => {
+  const { error } = listingSchema.validate(req.body.listing);
+  if (error) {
+    return next(
+      new customError(400, error.details.map((el) => el.message).join(","))
+    );
+  }
+
   let newList = new listingModel(req.body.listing);
   await newList.save();
   res.redirect("/listings");
 });
 
 // update
-module.exports.update = wrapAsync(async (req, res) => {
+module.exports.update = wrapAsync(async (req, res, next) => {
   let { id } = req.params;
-  if (!req.body.listing) {
-    next(new customError(400, "Send Valid data for listing!"));
+
+  const { error } = listingSchema.validate(req.body.listing);
+  if (error) {
+    return next(
+      new customError(400, error.details.map((el) => el.message).join(","))
+    );
   }
   let newList = await listingModel.findByIdAndUpdate(id, req.body.listing);
   await newList.save();
@@ -71,6 +81,9 @@ module.exports.deleteReviews = wrapAsync(async (req, res) => {
 
   // Find the listing
   let listing = await listingModel.findById(id);
+  if (!listing) {
+    return next(new customError(404, "Listing not found!"));
+  }
 
   // Remove review reference from listing
   await listingModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });

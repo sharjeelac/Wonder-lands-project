@@ -14,16 +14,15 @@ const validateListing = require("../Middlewares/validateListing.js");
 const validateReview = require("../Middlewares/validateReview.js");
 
 router.get("/", allListings);
-router.post("/", addList, validateListing);
+router.post("/", validateListing, addList);
+router.get("/:id", show);
+router.get("/:id/edit", edit);
+router.put("/:id", validateListing, update);
+router.delete("/:id", deleted);
+router.post("/:id/reviews", addReviews, validateReview);
+router.delete("/:id/reviews/:reviewId", deleteReviews);
 router.get("/new", (req, res) => {
   res.render("new");
 });
-router.get("/:id", show);
-router.get("/:id/edit", edit);
-router.put("/:id", update, validateListing);
-router.delete("/:id", deleted);
-router.post("/:id/reviews", addReviews, validateReview);
-router.post("/:id/reviews", addReviews, validateReview);
-router.delete("/:id/reviews/:reviewId", deleteReviews);
 
 module.exports = router;
