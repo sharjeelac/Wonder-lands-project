@@ -19,8 +19,7 @@ router.get("/:id", show);
 router.get("/:id/edit", edit);
 router.put("/:id", validateListing, update);
 router.delete("/:id", deleted);
-router.post("/:id/reviews", addReviews, validateReview);
-router.delete("/:id/reviews/:reviewId", deleteReviews);
+
 router.get("/new", (req, res) => {
   res.render("new");
 });
