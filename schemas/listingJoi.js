@@ -14,4 +14,4 @@ const listingSchema = joi.object({
 });
 
 
-module.exports = { listingSchema };
+module.exports =  listingSchema ;

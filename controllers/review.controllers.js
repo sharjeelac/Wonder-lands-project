@@ -7,7 +7,6 @@ module.exports.addReviews = wrapAsync(async (req, res) => {
   let listing = await listingModel.findById(req.params.id);
   let newReview = new reviewModel(req.body.review);
 
-  console.log(listing);
   listing.reviews.push(newReview);
 
   await newReview.save();
