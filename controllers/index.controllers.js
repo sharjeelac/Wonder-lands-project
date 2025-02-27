@@ -13,6 +13,10 @@ module.exports.allListings = wrapAsync(async (req, res) => {
 module.exports.show = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let list = await listingModel.findById(id).populate("reviews");
+  if (!list) {
+    req.flash("error", "List does not Exit");
+    res.redirect("/listings");
+  }
   res.render("show", { list });
 });
 
@@ -50,6 +54,7 @@ module.exports.update = wrapAsync(async (req, res, next) => {
   // }
   let newList = await listingModel.findByIdAndUpdate(id, req.body.listing);
   await newList.save();
+  req.flash("success", "List Updated");
   res.redirect(`/listings/${id}`);
 });
 
@@ -57,5 +62,6 @@ module.exports.update = wrapAsync(async (req, res, next) => {
 module.exports.deleted = wrapAsync(async (req, res) => {
   let { id } = req.params;
   await listingModel.findByIdAndDelete(id);
+  req.flash("success", "listing Delete");
   res.redirect(`/listings`);
 });

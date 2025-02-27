@@ -11,7 +11,7 @@ module.exports.addReviews = wrapAsync(async (req, res) => {
 
   await newReview.save();
   await listing.save();
-
+  req.flash("success", "Review Submited");
   res.redirect(`/listings/${listing._id}`);
 });
 
@@ -30,6 +30,6 @@ module.exports.deleteReviews = wrapAsync(async (req, res, next) => {
 
   // Delete the actual review
   await reviewModel.findByIdAndDelete(reviewId);
-
+  req.flash("success", "Review Deleted");
   res.redirect(`/listings/${id}`);
 });
