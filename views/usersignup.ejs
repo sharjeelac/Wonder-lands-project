@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate') -%>
+<div class="container py-5 mb-4">
+  <div class="mx-auto" style="max-width: 800px">
+    <h1>SignUp on Wonder Lands</h1>
+    <form action="/signup" method="post" class="needs-validation" novalidate>
+      <label for="username" class="text-muted">
+        <i class="fas text-primary"></i>Username
+      </label>
+      <input
+        type="text"
+        name="username"
+        class="form-control form-control-lg"
+        id="username"
+        required
+      />
+      <label for="username" class="text-muted">
+        <i class="fas text-primary"></i>Email
+      </label>
+      <input
+        type="text"
+        name="email"
+        class="form-control form-control-lg"
+        id="email"
+        required
+      />
+      <label for="username" class="text-muted">
+        <i class="fas text-primary"></i>password
+      </label>
+      <input
+        type="text"
+        name="password"
+        class="form-control form-control-lg"
+        id="password"
+        required
+      />
+      <button type="submit" class="btn btn-success mb-4 mt-4">SignUp</button>
+    </form>
+  </div>
+</div>
