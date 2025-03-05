@@ -5,15 +5,20 @@ const { signUp, login } = require('../controllers/user.controllers.js');
 const wrapAsync = require('../utils/wrapAsync.js');
 const passport = require('passport');
 
+// SignUp Page
 router.get('/signup', (req, res) => {
   res.render('usersignup.ejs');
 });
+
+// Login page
 router.get('/login', (req, res) => {
   res.render('userlogin.ejs');
 });
 
+// signup post
 router.post('/signup', signUp);
 
+// login post
 router.post(
   '/login',
   passport.authenticate('local', {
@@ -22,5 +27,16 @@ router.post(
   }),
   login,
 );
+
+// logout get
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'you are logged out!');
+    res.redirect('/listings');
+  });
+});
 
 module.exports = router;

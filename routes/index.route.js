@@ -11,11 +11,11 @@ const {
 const validateListing = require('../Middlewares/validateListing.js');
 const { isLoggedIn } = require('../Middlewares/isLoggedIn.js');
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
   res.render('new');
 });
 router.get('/', allListings);
-router.post('/',isLoggedIn, validateListing, addList);
+router.post('/', isLoggedIn, validateListing, addList);
 router.get('/:id', isLoggedIn, show);
 router.get('/:id/edit', isLoggedIn, edit);
 router.put('/:id', isLoggedIn, validateListing, update);
