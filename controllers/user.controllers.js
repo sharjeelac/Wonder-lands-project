@@ -15,3 +15,12 @@ module.exports.signUp = wrapAsync(async (req, res) => {
     res.redirect('/signup');
   }
 });
+module.exports.login = wrapAsync(async (req, res) => {
+  try {
+    req.flash('success', 'Welcome back to wonder lands');
+    res.redirect('/listings')
+  } catch (error) {
+    req.flash('error', error.message);
+    res.redirect('/signup');
+  }
+});
