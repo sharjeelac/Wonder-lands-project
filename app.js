@@ -63,15 +63,15 @@ app.get('/', (req, res) => {
 });
 
 // Demo User
-app.get('/demouser', async (req, res) => {
-  let fakeUser = new UserModel({
-    email: 'student@gmail.com',
-    username: 'StudentOne',
-  });
+// app.get('/demouser', async (req, res) => {
+//   let fakeUser = new UserModel({
+//     email: 'student@gmail.com',
+//     username: 'StudentOne',
+//   });
 
-  let newUser = await userModel.register(fakeUser, 'helloworld');
-  res.send(newUser);
-});
+//   let newUser = await userModel.register(fakeUser, 'helloworld');
+//   res.send(newUser);
+// });
 
 // Routes
 app.use('/listings', listingRoute);
@@ -94,6 +94,8 @@ app.use((err, req, res, next) => {
   res.status(status).render('error.ejs', { status, message });
 });
 
+
+// listen to port
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is Running on http://localhost:${PORT}`);
