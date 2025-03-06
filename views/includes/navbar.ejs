@@ -1,14 +1,21 @@
-<nav class="mb-5 navbar navbar-expand-md navbar-dark bg-white shadow-lg sticky-top" style="background: linear-gradient(135deg, #f3f3ff, #ffffff);">
+<nav
+  class="mb-5 navbar navbar-expand-md navbar-dark bg-white shadow-lg sticky-top"
+  style="background: linear-gradient(135deg, #f3f3ff, #ffffff)"
+>
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="/listings">
-      <i class="fa-solid fa-mountain-sun me-2 text-dark "></i>
+      <i class="fa-solid fa-mountain-sun me-2 text-dark"></i>
       <span class="fw-bold text-dark">Wonder Lands</span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-
 
     <div class="collapse navbar-collapse" id="mainNav">
       <div class="navbar-nav ms-auto">
@@ -25,15 +32,12 @@
     </div>
     <div class="collapse navbar-collapse" id="mainNav">
       <div class="navbar-nav ms-auto">
-        <a class="nav-link position-relative mx-3" href="/Signup">
-          Sign Up
-        </a>
-        <a class="nav-link position-relative mx-3" href="/login">
-          LogIn
-        </a>
-        <a class="nav-link position-relative mx-3" href="/logout">
-          logout
-        </a>
+        <% if(!currUser){ %>
+        <a class="nav-link position-relative mx-3" href="/Signup"> Sign Up </a>
+        <a class="nav-link position-relative mx-3" href="/login"> LogIn </a>
+        <%} %> <% if(currUser){ %>
+        <a class="nav-link position-relative mx-3" href="/logout"> logout </a>
+        <%} %>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@ const User = require('../models/user.model.js');
 const { signUp, login } = require('../controllers/user.controllers.js');
 const wrapAsync = require('../utils/wrapAsync.js');
 const passport = require('passport');
+const { savedRedirectUrl } = require('../Middlewares/isLoggedIn.js');
 
 // SignUp Page
 router.get('/signup', (req, res) => {
@@ -16,11 +17,12 @@ router.get('/login', (req, res) => {
 });
 
 // signup post
-router.post('/signup', signUp);
+router.post('/signup', savedRedirectUrl, signUp);
 
 // login post
 router.post(
   '/login',
+  savedRedirectUrl,
   passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true,
