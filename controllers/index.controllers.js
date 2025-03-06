@@ -1,45 +1,44 @@
-const listingModel = require("../models/listing.js");
-const wrapAsync = require("../utils/wrapAsync.js");
-const customError = require("../utils/CustomError.js");
-const listingSchema = require("../schemas/listingJoi.js");
+const listingModel = require('../models/listing.js');
+const wrapAsync = require('../utils/wrapAsync.js');
+const customError = require('../utils/CustomError.js');
+const listingSchema = require('../schemas/listingJoi.js');
 
 // show all listings
 module.exports.allListings = wrapAsync(async (req, res) => {
   let listings = await listingModel.find();
-  res.render("index.ejs", { listings });
+  res.render('index.ejs', { listings });
 });
 
 // show each list page
 module.exports.show = wrapAsync(async (req, res) => {
   let { id } = req.params;
-  let list = await listingModel.findById(id).populate("reviews");
+  let list = await listingModel
+    .findById(id)
+    .populate('reviews')
+    .populate('owner');
   if (!list) {
-    req.flash("error", "List does not Exit");
-    res.redirect("/listings");
+    req.flash('error', 'List does not Exit');
+    res.redirect('/listings');
   }
-  res.render("show", { list });
+  console.log(list);
+  res.render('show', { list });
 });
 
 // edit page
 module.exports.edit = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let list = await listingModel.findById(id);
-  res.render("edit", { list });
+  res.render('edit', { list });
 });
 
 // post create new list
 module.exports.addList = wrapAsync(async (req, res, next) => {
   const { error } = listingSchema.validate(req.body.listing || req.body);
-  // if (error) {
-  //   return next(
-  //     new customError(400, error.details.map((el) => el.message).join(","))
-  //   );
-  // }
-
   let newList = new listingModel(req.body.listing);
+  newList.owner = req.user._id;
   await newList.save();
-  req.flash("success", "New list Successfully Added!");
-  res.redirect("/listings");
+  req.flash('success', 'New list Successfully Added!');
+  res.redirect('/listings');
 });
 
 // update
@@ -54,7 +53,7 @@ module.exports.update = wrapAsync(async (req, res, next) => {
   // }
   let newList = await listingModel.findByIdAndUpdate(id, req.body.listing);
   await newList.save();
-  req.flash("success", "List Updated");
+  req.flash('success', 'List Updated');
   res.redirect(`/listings/${id}`);
 });
 
@@ -62,6 +61,6 @@ module.exports.update = wrapAsync(async (req, res, next) => {
 module.exports.deleted = wrapAsync(async (req, res) => {
   let { id } = req.params;
   await listingModel.findByIdAndDelete(id);
-  req.flash("success", "listing Delete");
+  req.flash('success', 'listing Delete');
   res.redirect(`/listings`);
 });
