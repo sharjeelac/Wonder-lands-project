@@ -11,15 +11,29 @@ const {
 const validateListing = require('../Middlewares/validateListing.js');
 const { isLoggedIn } = require('../Middlewares/isLoggedIn.js');
 const { isOwner } = require('../Middlewares/isOwner.js');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+router.route('/').get(allListings).post(isLoggedIn, validateListing, addList);
 
 router.get('/new', isLoggedIn, (req, res) => {
   res.render('new');
 });
-router.get('/', allListings);
-router.post('/', isLoggedIn, validateListing, addList);
-router.get('/:id', show);
+
+// router.post(
+//   '/',
+//   upload.single('listing[image]'),
+//   (req, res) => {
+//     res.send(req.file)
+//   },
+// );
+
+router
+  .route('/:id')
+  .get(show)
+  .put(isLoggedIn, isOwner, validateListing, update)
+  .delete(isLoggedIn, isOwner, deleted);
+
 router.get('/:id/edit', isLoggedIn, isOwner, edit);
-router.put('/:id', isLoggedIn, isOwner, validateListing, update);
-router.delete('/:id', isLoggedIn, isOwner, deleted);
 
 module.exports = router;

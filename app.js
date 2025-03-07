@@ -13,7 +13,8 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const UserModel = require('./models/user.model.js');
-const userModel = require('./models/user.model.js');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 dotenv.config();
 
@@ -62,17 +63,6 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });
-
-// Demo User
-// app.get('/demouser', async (req, res) => {
-//   let fakeUser = new UserModel({
-//     email: 'student@gmail.com',
-//     username: 'StudentOne',
-//   });
-
-//   let newUser = await userModel.register(fakeUser, 'helloworld');
-//   res.send(newUser);
-// });
 
 // Routes
 app.use('/listings', listingRoute);

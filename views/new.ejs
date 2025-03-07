@@ -1,10 +1,13 @@
 <% layout('layouts/boilerplate') -%>
 <body>
   <div class="container py-5">
-    <div class="mx-auto" style="max-width: 800px;">
+    <div class="mx-auto" style="max-width: 800px">
       <!-- Header Section -->
       <div class="d-flex align-items-center mb-5">
-        <a href="/listings" class="btn btn-outline-secondary rounded-circle me-3">
+        <a
+          href="/listings"
+          class="btn btn-outline-secondary rounded-circle me-3"
+        >
           <i class="fas fa-arrow-left"></i>
         </a>
         <h2 class="mb-0 text-gradient-primary">Create New Listing</h2>
@@ -12,18 +15,26 @@
 
       <!-- Form Container -->
       <div class="card border-0 shadow-lg py-4 px-3 px-md-5">
-        <form action="/listings" method="post" class="needs-validation" novalidate>
+        <form
+          action="/listings"
+          method="post"
+          class="needs-validation"
+          novalidate
+          enctype="multipart/form-data"
+        >
           <!-- Form Grid -->
           <div class="row g-4">
             <!-- Left Column -->
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="text"
-                       name="listing[title]"
-                       class="form-control form-control-lg"
-                       id="title"
-                       placeholder="Enter Title"
-                       required>
+                <input
+                  type="text"
+                  name="listing[title]"
+                  class="form-control form-control-lg"
+                  id="title"
+                  placeholder="Enter Title"
+                  required
+                />
                 <label for="title" class="text-muted">
                   <i class="fas fa-heading me-2 text-primary"></i>Title
                 </label>
@@ -31,65 +42,96 @@
               </div>
 
               <div class="form-floating mt-4">
-                <input type="number"
-                       name="listing[price]"
-                       class="form-control form-control-lg"
-                       id="price"
-                       placeholder="Enter Price"
-                       required>
+                <input
+                  type="number"
+                  name="listing[price]"
+                  class="form-control form-control-lg"
+                  id="price"
+                  placeholder="Enter Price"
+                  required
+                />
                 <label for="price" class="text-muted">
                   <i class="fas fa-tag me-2 text-success"></i>Price per night
                 </label>
                 <div class="invalid-feedback">Please enter a Price</div>
               </div>
 
-              <div class="form-floating mt-4">
-                <input type="url"
-                       name="listing[image]"
-                       class="form-control form-control-lg"
-                       id="image"
-                       placeholder="Enter image URL"
-                       required>
+              <!-- image Url option  -->
+              <!-- <div class="form-floating mt-4">
+                <input
+                  type="url"
+                  name="listing[image]"
+                  class="form-control form-control-lg"
+                  id="image"
+                  placeholder="Enter image URL"
+                  required
+                />
                 <label for="image" class="text-muted">
                   <i class="fas fa-image me-2 text-info"></i>Image URL
+                </label>
+              </div> -->
+
+              <!-- image upload  -->
+              <div class="form-floating mt-4">
+                <input
+                  type="file"
+                  name="listing[image]"
+                  class="form-control form-control-lg"
+                  id="image"
+                  required
+                />
+                <label for="image" class="text-muted">
+                  <i class="fas fa-image me-2 text-info"></i>Upload Image
                 </label>
               </div>
             </div>
 
             <!-- Right Column -->
             <div class="col-md-6">
+
+              <!-- Description  -->
               <div class="form-floating">
-                <textarea name="listing[description]"
-                          class="form-control form-control-lg"
-                          id="description"
-                          style="height: 150px"
-                          required>Description Here</textarea>
+                <textarea
+                  name="listing[description]"
+                  class="form-control form-control-lg"
+                  id="description"
+                  style="height: 150px"
+                  required
+                >
+Description Here</textarea
+                >
                 <label for="description" class="text-muted">
                   <i class="fas fa-align-left me-2 text-warning"></i>Description
                 </label>
                 <div class="invalid-feedback">Please enter a Description</div>
               </div>
 
+              <!-- location  -->
               <div class="form-floating mt-4">
-                <input type="text"
-                       name="listing[location]"
-                       class="form-control form-control-lg"
-                       id="location"
-                       placeholder="Enter location"
-                       required>
+                <input
+                  type="text"
+                  name="listing[location]"
+                  class="form-control form-control-lg"
+                  id="location"
+                  placeholder="Enter location"
+                  required
+                />
                 <label for="location" class="text-muted">
                   <i class="fas fa-map-marker-alt me-2 text-danger"></i>Location
                 </label>
                 <div class="invalid-feedback">Please enter a Location</div>
               </div>
 
+              <!-- country -->
               <div class="form-floating mt-4">
-                <input type="text"
-                       name="listing[country]"
-                       class="form-control form-control-lg"
-                       id="country"
-                       placeholder="Enter country"
-                       required>
+                <input
+                  type="text"
+                  name="listing[country]"
+                  class="form-control form-control-lg"
+                  id="country"
+                  placeholder="Enter country"
+                  required
+                />
                 <label for="country" class="text-muted">
                   <i class="fas fa-globe me-2 text-primary"></i>Country
                 </label>
@@ -100,7 +142,10 @@
 
           <!-- Submit Button -->
           <div class="mt-5 text-center">
-            <button type="submit" class="btn btn-primary btn-lg px-5 py-3 gradient-button">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg px-5 py-3 gradient-button"
+            >
               <i class="fas fa-plus-circle me-2"></i>Create Listing
             </button>
           </div>
@@ -166,17 +211,21 @@
   <script>
     // Form validation script
     (() => {
-      'use strict'
-      const forms = document.querySelectorAll('.needs-validation')
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          form.classList.add('was-validated')
-        }, false)
-      })
-    })()
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          'submit',
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          },
+          false,
+        );
+      });
+    })();
   </script>
 </body>

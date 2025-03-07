@@ -6,29 +6,26 @@ const wrapAsync = require('../utils/wrapAsync.js');
 const passport = require('passport');
 const { savedRedirectUrl } = require('../Middlewares/isLoggedIn.js');
 
-// SignUp Page
-router.get('/signup', (req, res) => {
-  res.render('usersignup.ejs');
-});
+router
+  .route('/signup')
+  .get((req, res) => {
+    res.render('usersignup.ejs');
+  })
+  .post(savedRedirectUrl, signUp);
 
-// Login page
-router.get('/login', (req, res) => {
-  res.render('userlogin.ejs');
-});
-
-// signup post
-router.post('/signup', savedRedirectUrl, signUp);
-
-// login post
-router.post(
-  '/login',
-  savedRedirectUrl,
-  passport.authenticate('local', {
-    failureRedirect: '/login',
-    failureFlash: true,
-  }),
-  login,
-);
+router
+  .route('/login')
+  .get((req, res) => {
+    res.render('userlogin.ejs');
+  })
+  .post(
+    savedRedirectUrl,
+    passport.authenticate('local', {
+      failureRedirect: '/login',
+      failureFlash: true,
+    }),
+    login,
+  );
 
 // logout get
 router.get('/logout', (req, res, next) => {
