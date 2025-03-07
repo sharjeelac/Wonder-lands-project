@@ -16,8 +16,8 @@ router.get('/new', isLoggedIn, (req, res) => {
   res.render('new');
 });
 router.get('/', allListings);
-router.post('/', isLoggedIn, isOwner, validateListing, addList);
-router.get('/:id', isLoggedIn, show);
+router.post('/', isLoggedIn, validateListing, addList);
+router.get('/:id', show);
 router.get('/:id/edit', isLoggedIn, isOwner, edit);
 router.put('/:id', isLoggedIn, isOwner, validateListing, update);
 router.delete('/:id', isLoggedIn, isOwner, deleted);

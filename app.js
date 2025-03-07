@@ -91,8 +91,8 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   const { status = 500, message = 'Internal Server Error!' } = err;
   console.error(`Error ${status}: ${message}`);
-
-  res.status(status).render('error.ejs', { status, message });
+  req.flash(`error`, message);
+  res.redirect('/listings');
 });
 
 // listen to port

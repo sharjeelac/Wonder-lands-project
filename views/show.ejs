@@ -131,6 +131,7 @@
         <div class="col-md-6 mb-3">
           <div class="card shadow-sm">
             <div class="card-body">
+              <h4><%= review.author.username %></h4>
               <p class="card-text"><%= review.comment %></p>
               <p class="card-text">
                 <small class="text-muted">Rating: <%= review.rating %></small>
@@ -140,7 +141,9 @@
                 action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
                 method="post"
               >
+                <% if(currUser && currUser._id.equals(review.author._id)) { %>
                 <button type="submit">Delete</button>
+                <% } %>
               </form>
             </div>
           </div>

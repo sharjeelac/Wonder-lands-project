@@ -14,7 +14,12 @@ module.exports.show = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let list = await listingModel
     .findById(id)
-    .populate('reviews')
+    .populate({
+      path: 'reviews',
+      populate: {
+        path: 'author',
+      },
+    })
     .populate('owner');
   if (!list) {
     req.flash('error', 'List does not Exit');
