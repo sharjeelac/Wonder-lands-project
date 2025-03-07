@@ -32,7 +32,9 @@
             <h4 class="card-title fw-semibold mb-3">
               <i class="fas fa-info-circle text-primary me-2"></i>Description
             </h4>
-            <p class="card-text fs-5 text-muted"> Owned By : <%= list.owner.username %></p>
+            <p class="card-text fs-5 text-muted">
+              Owned By : <%= list.owner.username %>
+            </p>
             <p class="card-text fs-5 text-muted"><%= list.description %></p>
           </div>
         </div>
@@ -68,6 +70,7 @@
     </div>
 
     <!-- Action Buttons -->
+    <% if(currUser && currUser._id.equals(list.owner._id)) { %>
     <div class="d-flex gap-3 mb-5">
       <a
         href="/listings/<%= list._id %>/edit"
@@ -81,6 +84,7 @@
         </button>
       </form>
     </div>
+    <% } %>
 
     <!-- Review Section -->
     <div class="review-section mb-5">
@@ -132,7 +136,10 @@
                 <small class="text-muted">Rating: <%= review.rating %></small>
               </p>
 
-              <form action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+              <form
+                action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
+                method="post"
+              >
                 <button type="submit">Delete</button>
               </form>
             </div>
@@ -184,19 +191,19 @@
   <script>
     // Form validation script
     (function () {
-      "use strict";
-      const forms = document.querySelectorAll(".needs-validation");
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
       Array.from(forms).forEach((form) => {
         form.addEventListener(
-          "submit",
+          'submit',
           (event) => {
             if (!form.checkValidity()) {
               event.preventDefault();
               event.stopPropagation();
             }
-            form.classList.add("was-validated");
+            form.classList.add('was-validated');
           },
-          false
+          false,
         );
       });
     })();

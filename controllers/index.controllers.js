@@ -20,7 +20,6 @@ module.exports.show = wrapAsync(async (req, res) => {
     req.flash('error', 'List does not Exit');
     res.redirect('/listings');
   }
-  console.log(list);
   res.render('show', { list });
 });
 
@@ -44,13 +43,6 @@ module.exports.addList = wrapAsync(async (req, res, next) => {
 // update
 module.exports.update = wrapAsync(async (req, res, next) => {
   let { id } = req.params;
-
-  // const { error } = listingSchema.validate(req.body.listing);
-  // if (error) {
-  //   return next(
-  //     new customError(400, error.details.map((el) => el.message).join(","))
-  //   );
-  // }
   let newList = await listingModel.findByIdAndUpdate(id, req.body.listing);
   await newList.save();
   req.flash('success', 'List Updated');
