@@ -1,0 +1,33 @@
+
+  .text-gradient-primary {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .shadow-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 1rem;
+  }
+
+  .shadow-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-img-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.03));
+  }
+
+  .btn-outline-primary:hover {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    color: white !important;
+    border-color: transparent;
+  }

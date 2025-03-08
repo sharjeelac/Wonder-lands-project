@@ -12,21 +12,23 @@ const validateListing = require('../Middlewares/validateListing.js');
 const { isLoggedIn } = require('../Middlewares/isLoggedIn.js');
 const { isOwner } = require('../Middlewares/isOwner.js');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const { storage } = require('../cloudConfig.js');
+const upload = multer({ storage });
 
-router.route('/').get(allListings).post(isLoggedIn, validateListing, addList);
+// Upload Image Route
+router.post('/', upload.single('listing[image]'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'File upload failed' });
+  }
+  res.json({ message: 'Image uploaded successfully', url: req.file.path });
+});
+
+router.route('/').get(allListings);
+// .post(isLoggedIn, validateListing, addList);
 
 router.get('/new', isLoggedIn, (req, res) => {
   res.render('new');
 });
-
-// router.post(
-//   '/',
-//   upload.single('listing[image]'),
-//   (req, res) => {
-//     res.send(req.file)
-//   },
-// );
 
 router
   .route('/:id')

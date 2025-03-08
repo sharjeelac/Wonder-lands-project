@@ -16,7 +16,9 @@ const UserModel = require('./models/user.model.js');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-dotenv.config();
+if (process.env.NODE_ENV != 'production') {
+  dotenv.config();
+}
 
 const app = express();
 
