@@ -37,9 +37,13 @@ module.exports.edit = wrapAsync(async (req, res) => {
 
 // post create new list
 module.exports.addList = wrapAsync(async (req, res, next) => {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  console.log(url, '..', filename);
   const { error } = listingSchema.validate(req.body.listing || req.body);
   let newList = new listingModel(req.body.listing);
   newList.owner = req.user._id;
+  newList.image = { url, filename };
   await newList.save();
   req.flash('success', 'New list Successfully Added!');
   res.redirect('/listings');

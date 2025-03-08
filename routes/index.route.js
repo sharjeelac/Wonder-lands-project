@@ -16,15 +16,17 @@ const { storage } = require('../cloudConfig.js');
 const upload = multer({ storage });
 
 // Upload Image Route
-router.post('/', upload.single('listing[image]'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'File upload failed' });
-  }
-  res.json({ message: 'Image uploaded successfully', url: req.file.path });
-});
+// router.post('/', upload.single('listing[image]'), (req, res) => {
+//   if (!req.file) {
+//     return res.status(400).json({ error: 'File upload failed' });
+//   }
+//   res.json({ message: 'Image uploaded successfully', url: req.file.path });
+// });
 
-router.route('/').get(allListings);
-// .post(isLoggedIn, validateListing, addList);
+router
+  .route('/')
+  .get(allListings)
+  .post(isLoggedIn, upload.single('listing[image]'),  validateListing,  addList);
 
 router.get('/new', isLoggedIn, (req, res) => {
   res.render('new');

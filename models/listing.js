@@ -11,9 +11,8 @@ const listingSchema = new mongoose.Schema({
   description: String,
   price: Number,
   image: {
-    type: String,
-    default: 'link',
-    set: (v) => (v === '' ? 'link' : v),
+    url: String,
+    filename: String,
   },
   location: String,
   country: String,
