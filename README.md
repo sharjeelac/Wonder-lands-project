@@ -2,8 +2,6 @@
 
 Welcome to **Wonder Lands**, a full-stack web application that lets users discover extraordinary stays and unique accommodations. Explore curated listings, manage your own properties, and share your experiences through reviews—all wrapped in a modern, responsive design.  
 
-![Wonder Lands Preview](your-image-url-here)  
-
 ---
 
 ## ✨ Features  
