@@ -1,122 +1,33 @@
 <% if ((success && success.length) || (error && error.length)) { %>
-<div
-  class="alert-container position-fixed top-4 end-4"
-  style="z-index: 9999"
-  aria-live="polite"
->
-  <% if (success && success.length) { %>
-  <div
-    class="alert alert-success alert-dismissible border-start-4 border-success bg-success-soft d-flex align-items-center gap-3 fade show shadow-sm mb-3"
-    role="alert"
-    style="min-width: 300px; max-width: 90vw"
-  >
-    <i class="fa-regular fa-circle-check fs-5 text-success"></i>
-    <div class="flex-grow-1">
-      <div class="fw-medium"><%= success %></div>
-    </div>
-    <button
-      type="button"
-      class="btn-close btn-close-success"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    ></button>
-    <div class="alert-progress bg-success" style="height: 3px"></div>
+  <div class="mb-6 space-y-4">
+    <% if (success && success.length) { %>
+      <div class="p-4 rounded-md bg-green-50 border border-green-200 shadow-md transition ease-in-out duration-150" role="alert">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm font-medium text-green-800"><%= success %></p>
+          </div>
+        </div>
+      </div>
+    <% } %>
+
+    <% if (error && error.length) { %>
+      <div class="p-4 rounded-md bg-red-50 border border-red-200 shadow-md transition ease-in-out duration-150" role="alert">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm font-medium text-red-800"><%= error %></p>
+          </div>
+        </div>
+      </div>
+    <% } %>
   </div>
-  <% } %> <% if (error && error.length) { %>
-  <div
-    class="alert alert-danger alert-dismissible border-start-4 border-danger bg-danger-soft d-flex align-items-center gap-3 fade show shadow-sm mb-3"
-    role="alert"
-    style="min-width: 300px; max-width: 90vw"
-  >
-    <i class="fa-regular fa-circle-xmark fs-5 text-danger"></i>
-    <div class="flex-grow-1">
-      <div class="fw-medium"><%= error %></div>
-    </div>
-    <button
-      type="button"
-      class="btn-close btn-close-danger"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    ></button>
-    <div class="alert-progress bg-danger" style="height: 3px"></div>
-  </div>
-  <% } %>
-</div>
 <% } %>
-
-<style>
-  .alert {
-    padding: 1.25rem;
-    border-radius: 0.75rem;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  .alert-container {
-    animation: slideIn 0.3s ease forwards;
-  }
-
-  .alert.alert-danger {
-    border-left-color: #dc3545;
-  }
-
-  .alert.alert-success {
-    border-left-color: #198754;
-  }
-
-  .bg-success-soft {
-    background-color: rgba(25, 135, 84, 0.1);
-  }
-
-  .bg-danger-soft {
-    background-color: rgba(220, 53, 69, 0.1);
-  }
-
-  .btn-close-success {
-    filter: invert(42%) sepia(93%) saturate(365%) hue-rotate(98deg)
-      brightness(96%) contrast(89%);
-  }
-
-  .btn-close-danger {
-    filter: invert(35%) sepia(61%) saturate(3557%) hue-rotate(337deg)
-      brightness(89%) contrast(101%);
-  }
-
-  .alert-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    animation: progressBar 5s linear forwards;
-  }
-
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes progressBar {
-    from {
-      width: 100%;
-    }
-    to {
-      width: 0%;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .alert-container {
-      right: 1rem !important;
-      top: 1rem !important;
-    }
-    .alert {
-      min-width: 280px !important;
-      font-size: 0.9rem;
-    }
-  }
-</style>

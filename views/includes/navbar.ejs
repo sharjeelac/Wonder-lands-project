@@ -1,78 +1,141 @@
 <nav
-  class="mb-5 navbar navbar-expand-md navbar-dark bg-white shadow-lg sticky-top"
+  class="sticky top-0 bg-white shadow-lg z-50"
   style="background: linear-gradient(135deg, #f3f3ff, #ffffff)"
 >
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="/listings">
-      <i class="fa-solid fa-mountain-sun me-2 text-dark"></i>
-      <span class="fw-bold text-dark">Wonder Lands</span>
-    </a>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#mainNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="mainNav">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link position-relative mx-3" href="/">
-          <i class="fa-solid fa-house me-2"></i>Home
-        </a>
-        <a class="nav-link position-relative mx-3" href="/listings">
-          <i class="fa-solid fa-map-location-dot me-2"></i>Listings
-        </a>
-        <a class="nav-link position-relative mx-3" href="/listings/new">
-          <i class="fa-solid fa-plus me-2"></i>New
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Brand Logo -->
+      <div class="flex-shrink-0 flex items-center">
+        <a href="/listings" class="flex items-center">
+          <i class="fa-solid fa-mountain-sun text-2xl text-indigo-600"></i>
+          <span class="ml-2 text-xl font-bold text-gray-900">Wonder Lands</span>
         </a>
       </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex md:hidden">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
+          onclick="toggleMobileMenu()"
+        >
+          <i class="fa-solid fa-bars h-6 w-6"></i>
+        </button>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex md:items-center md:space-x-6">
+        <div class="flex space-x-6">
+          <a
+            href="/"
+            class="text-gray-700 hover:text-indigo-600 transition-colors flex items-center"
+          >
+            <i class="fa-solid fa-house mr-2"></i>
+            Home
+          </a>
+          <a
+            href="/listings"
+            class="text-gray-700 hover:text-indigo-600 transition-colors flex items-center"
+          >
+            <i class="fa-solid fa-map-location-dot mr-2"></i>
+            Listings
+          </a>
+          <a
+            href="/listings/new"
+            class="text-gray-700 hover:text-indigo-600 transition-colors flex items-center"
+          >
+            <i class="fa-solid fa-plus mr-2"></i>
+            New
+          </a>
+        </div>
+
+        <!-- Auth Links -->
+        <div
+          class="ml-6 flex items-center space-x-4 border-l border-gray-200 pl-6"
+        >
+          <% if(!currUser) { %>
+          <a
+            href="/Signup"
+            class="text-gray-700 hover:text-indigo-600 transition-colors"
+          >
+            Sign Up
+          </a>
+          <a
+            href="/login"
+            class="text-gray-700 hover:text-indigo-600 transition-colors"
+          >
+            Log In
+          </a>
+          <% } else { %>
+          <a
+            href="/logout"
+            class="text-gray-700 hover:text-indigo-600 transition-colors"
+          >
+            Logout
+          </a>
+          <% } %>
+        </div>
+      </div>
     </div>
-    <div class="collapse navbar-collapse" id="mainNav">
-      <div class="navbar-nav ms-auto">
-        <% if(!currUser){ %>
-        <a class="nav-link position-relative mx-3" href="/Signup"> Sign Up </a>
-        <a class="nav-link position-relative mx-3" href="/login"> LogIn </a>
-        <%} %> <% if(currUser){ %>
-        <a class="nav-link position-relative mx-3" href="/logout"> logout </a>
-        <%} %>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    class="hidden md:hidden absolute w-full bg-white shadow-lg"
+    id="mobile-menu"
+  >
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a
+        href="/"
+        class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+      >
+        <i class="fa-solid fa-house mr-2"></i>
+        Home
+      </a>
+      <a
+        href="/listings"
+        class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+      >
+        <i class="fa-solid fa-map-location-dot mr-2"></i>
+        Listings
+      </a>
+      <a
+        href="/listings/new"
+        class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+      >
+        <i class="fa-solid fa-plus mr-2"></i>
+        New
+      </a>
+      <div class="border-t pt-2 mt-2">
+        <% if(!currUser) { %>
+        <a
+          href="/Signup"
+          class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100"
+        >
+          Sign Up
+        </a>
+        <a
+          href="/login"
+          class="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-blue-600"
+        >
+          Log In
+        </a>
+        <% } else { %>
+        <a
+          href="/logout"
+          class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+        >
+          Logout
+        </a>
+        <% } %>
       </div>
     </div>
   </div>
 </nav>
 
-<style>
-  .nav-link {
-    color: rgba(30, 30, 30, 0.85) !important;
-    transition: all 0.3s ease;
+<script>
+  function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.toggle('hidden');
   }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: rgb(25, 25, 25);
-    transition: width 0.3s ease;
-  }
-
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
-  .nav-link:hover {
-    transform: translateY(-2px);
-  }
-
-  .navbar-brand i {
-    transition: transform 0.5s ease;
-  }
-
-  .navbar-brand:hover i {
-    transform: rotate(360deg);
-  }
-</style>
+</script>

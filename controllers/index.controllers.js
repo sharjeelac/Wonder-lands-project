@@ -32,7 +32,9 @@ module.exports.show = wrapAsync(async (req, res) => {
 module.exports.edit = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let list = await listingModel.findById(id);
-  res.render('edit', { list });
+  let originalUrl = list.image.url;
+  originalUrl.replace('/upload', '/upload/h_300,w_256');
+  res.render('edit', { list, originalUrl });
 });
 
 // post create new list
@@ -51,7 +53,9 @@ module.exports.addList = wrapAsync(async (req, res, next) => {
 // update
 module.exports.update = wrapAsync(async (req, res, next) => {
   let { id } = req.params;
-  let listing = await listingModel.findByIdAndUpdate(id, {...req.body.listing});
+  let listing = await listingModel.findByIdAndUpdate(id, {
+    ...req.body.listing,
+  });
   if (typeof req.file !== 'undefined') {
     let url = req.file.path;
     let filename = req.file.filename;
