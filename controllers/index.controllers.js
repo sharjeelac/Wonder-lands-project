@@ -39,7 +39,6 @@ module.exports.edit = wrapAsync(async (req, res) => {
 module.exports.addList = wrapAsync(async (req, res, next) => {
   let url = req.file.path;
   let filename = req.file.filename;
-  console.log(url, '..', filename);
   const { error } = listingSchema.validate(req.body.listing || req.body);
   let newList = new listingModel(req.body.listing);
   newList.owner = req.user._id;
@@ -52,8 +51,13 @@ module.exports.addList = wrapAsync(async (req, res, next) => {
 // update
 module.exports.update = wrapAsync(async (req, res, next) => {
   let { id } = req.params;
-  let newList = await listingModel.findByIdAndUpdate(id, req.body.listing);
-  await newList.save();
+  let listing = await listingModel.findByIdAndUpdate(id, {...req.body.listing});
+  if (typeof req.file !== 'undefined') {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
   req.flash('success', 'List Updated');
   res.redirect(`/listings/${id}`);
 });
